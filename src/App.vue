@@ -1,28 +1,14 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <opti-image src="/assets/cat-3.jpg" alt="this is a cute kitty"></opti-image>
   </div>
 </template>
-
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import OptiImage from "./components/OpiImage";
 export default {
-  name: "app",
+  name: "App",
   components: {
-    HelloWorld
+    OptiImage
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
