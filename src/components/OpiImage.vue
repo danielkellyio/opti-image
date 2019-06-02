@@ -10,6 +10,10 @@
 </template>
 
 <script>
+//TODO: Width height ratio support
+//TODO: Background color support
+//TODO: Srcset support
+
 export default {
   name: "OptiImage",
   components: {},
@@ -64,6 +68,11 @@ export default {
           });
       }
     },
+    /**
+     * Thanks Chris Ferdinandi for simple vanilla js way of detecting in viewport
+     * https://gomakethings.com/how-to-test-if-an-element-is-in-the-viewport-with-vanilla-javascript/
+     * @returns {boolean}
+     */
     inViewport() {
       let elem = this.$refs.image;
       let bounding = elem.getBoundingClientRect();
