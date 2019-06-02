@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <opti-image src="/assets/cat-3.jpg" alt="this is a cute kitty"></opti-image>
+    <br v-for="index in 50" :key="index" />
+    <opti-image
+      :lazy="true"
+      src="/assets/cat-2.jpg"
+      alt="this is a cute kitty"
+      width="800px"
+      :webp="true"
+    ></opti-image>
+    <br v-for="index in 50" :key="`hey-${index}`" />
   </div>
 </template>
 <script>
@@ -12,3 +20,13 @@ export default {
   }
 };
 </script>
+
+<style>
+.opti-image {
+  transition: 1s ease filter;
+  filter: blur(0px);
+}
+.opti-image-hidden {
+  filter: blur(30px);
+}
+</style>

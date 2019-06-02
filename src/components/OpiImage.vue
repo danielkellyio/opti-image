@@ -1,5 +1,12 @@
 <template>
-  <img v-if="(webpChecked && webpExistsChecked) || !webp" :src="smartSrc" />
+  <img
+    ref="image"
+    :class="{
+      'opti-image-hidden': !shouldDisplay,
+      'opti-image': true
+    }"
+    :src="shouldDisplay && (inViewPortOnce || !lazy) ? smartSrc : ''"
+  />
 </template>
 
 <script>
@@ -10,8 +17,8 @@ export default {
     return {
       webpChecked: false,
       webpSupported: false,
-      webpExistsChecked: false,
-      webpExists: false
+      inViewPortOnce: false,
+      currentlyInViewport: false
     };
   },
   props: {
@@ -21,12 +28,13 @@ export default {
   },
   computed: {
     smartSrc() {
-      return this.webpSupported && this.webpExists && this.webp
-        ? this.webpSrc
-        : this.src;
+      return this.webpSupported && this.webp ? this.webpSrc : this.src;
     },
     webpSrc() {
       return this.src.replace(/\.jpg$|$\.png$/, ".webp");
+    },
+    shouldDisplay() {
+      return this.webpChecked || !this.webp;
     }
   },
   methods: {
@@ -41,15 +49,6 @@ export default {
         };
       });
     },
-    checkWebpImageExists() {
-      return new Promise((resolve, reject) => {
-        let webP = new Image();
-        webP.src = this.webpSrc;
-        webP.onload = webP.onerror = function() {
-          webP.height > 0 ? resolve(true) : reject(false);
-        };
-      });
-    },
     initImage() {
       if (this.webp) {
         this.checkWebpSupport()
@@ -60,25 +59,50 @@ export default {
               resolve();
             });
           })
-          .then(() => {
-            return this.checkWebpImageExists();
-          })
-          .then(() => {
-            this.webpExistsChecked = true;
-            this.webpExists = true;
-          })
           .catch(() => {
-            this.webpExistsChecked = true;
             this.webpChecked = true;
           });
       }
+    },
+    inViewport() {
+      let elem = this.$refs.image;
+      let bounding = elem.getBoundingClientRect();
+      return (
+        bounding.top >= 0 &&
+        bounding.left >= 0 &&
+        bounding.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        bounding.right <=
+          (window.innerWidth || document.documentElement.clientWidth)
+      );
+    },
+    initImageInViewport() {
+      if (this.inViewport()) {
+        this.inViewPortOnce = true;
+        this.currentlyInViewport = true;
+        this.initImage();
+      }
+    },
+    checkInViewport() {
+      this.initImageInViewport();
+      window.addEventListener("scroll", () => {
+        this.initImageInViewport();
+      });
     }
   },
-  updated() {
-    this.initImage();
-  },
   mounted() {
-    this.initImage();
+    if (this.lazy) this.checkInViewport();
+    if (!this.lazy) this.initImage();
   }
 };
 </script>
+
+<style>
+img {
+  min-height: 1px;
+  min-width: 1px;
+}
+.opti-image-hidden {
+  opacity: 0;
+}
+</style>
