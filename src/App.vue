@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <opti-image />
+    <div v-for="index in 50" :key="`bye-${index}`">Hello World</div>
+    <opti-image background="blue" width="500px" height="500px" />
+    <div v-for="index in 50" :key="`bye-${index}`">Hello World</div>
   </div>
 </template>
 <script>

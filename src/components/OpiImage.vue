@@ -3,9 +3,11 @@
     ref="image"
     :class="{
       'opti-image-hidden': !shouldDisplay,
-      'opti-image': true
+      'opti-image': true,
+      'opti-image-in-viewport-once': inViewPortOnce
     }"
     :src="shouldDisplay && (inViewPortOnce || !lazy) ? smartSrc : ''"
+    :style="`background-color:${background}`"
   />
 </template>
 
@@ -13,7 +15,6 @@
 //TODO: Width height ratio support
 //TODO: Background color support
 //TODO: Srcset support
-
 export default {
   name: "OptiImage",
   components: {},
@@ -22,14 +23,14 @@ export default {
       webpChecked: false,
       webpSupported: false,
       inViewPortOnce: false,
-      currentlyInViewport: false,
       fileTypeShortCuts: ["jpg", "gif", "png", "webp"]
     };
   },
   props: {
     lazy: { type: Boolean, default: true },
     src: { type: String, default: "" },
-    backup: { type: String, default: "jpg" }
+    backup: { type: String, default: "jpg" },
+    background: { type: String, default: "" }
   },
   computed: {
     isWebP() {
@@ -42,8 +43,8 @@ export default {
         : this.backup;
     },
     placeholder() {
-      let width = parseInt(this.$attrs.width) || 150;
-      let height = this.$attrs.height || Math.round(width * 0.75);
+      let width = parseInt(this.$attrs.width) || 300;
+      let height = parseInt(this.$attrs.height) || Math.round(width * 0.75);
       let type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
       return `https://via.placeholder.com/${width}x${height}.${type}`;
     },
@@ -106,30 +107,33 @@ export default {
     initImageInViewport() {
       if (this.inViewport()) {
         this.inViewPortOnce = true;
-        this.currentlyInViewport = true;
         this.initImage();
       }
     },
     checkInViewport() {
       this.initImageInViewport();
-      window.addEventListener("scroll", () => {
-        this.initImageInViewport();
-      });
+      window.addEventListener("scroll", this.initImageInViewport);
     }
   },
   mounted() {
     if (this.lazy) this.checkInViewport();
     if (!this.lazy) this.initImage();
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.initImageInViewport);
   }
 };
 </script>
 
-<style>
+<style scoped>
 img {
   min-height: 1px;
   min-width: 1px;
 }
 .opti-image-hidden {
   opacity: 0;
+}
+:not(.opti-image-in-viewport-once) {
+  height: 0 !important;
 }
 </style>
