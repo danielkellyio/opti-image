@@ -22,23 +22,41 @@ export default {
       webpChecked: false,
       webpSupported: false,
       inViewPortOnce: false,
-      currentlyInViewport: false
+      currentlyInViewport: false,
+      fileTypeShortCuts: ["jpg", "gif", "png", "webp"]
     };
   },
   props: {
     lazy: { type: Boolean, default: true },
-    src: { type: String, required: true },
-    webp: { type: Boolean, default: true }
+    src: { type: String, default: "" },
+    backup: { type: String, default: "jpg" }
   },
   computed: {
-    smartSrc() {
-      return this.webpSupported && this.webp ? this.webpSrc : this.src;
+    isWebP() {
+      let file = this.src.split("?")[0];
+      return file.endsWith(".webp");
     },
-    webpSrc() {
-      return this.src.replace(/\.jpg$|$\.png$/, ".webp");
+    smartBackup() {
+      return this.fileTypeShortCuts.includes(this.backup)
+        ? this.src.replace(/\.webp$/, this.backup)
+        : this.backup;
+    },
+    placeholder() {
+      let width = parseInt(this.$attrs.width) || 150;
+      let height = this.$attrs.height || Math.round(width * 0.75);
+      let type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
+      return `https://via.placeholder.com/${width}x${height}.${type}`;
+    },
+    smartSrc() {
+      if (!this.src || this.fileTypeShortCuts.includes(this.src)) {
+        return this.placeholder;
+      }
+
+      if (!this.isWebP) return this.src;
+      return this.webpSupported ? this.src : this.smartBackup;
     },
     shouldDisplay() {
-      return this.webpChecked || !this.webp;
+      return this.webpChecked || !this.isWebP;
     }
   },
   methods: {
@@ -54,7 +72,7 @@ export default {
       });
     },
     initImage() {
-      if (this.webp) {
+      if (this.isWebP) {
         this.checkWebpSupport()
           .then(() => {
             return new Promise(resolve => {
