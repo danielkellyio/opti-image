@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div v-for="index in 50" :key="`bye-${index}`">Hello World</div>
-    <opti-image background="blue" width="500px" height="500px" />
-    <div v-for="index in 50" :key="`bye-${index}`">Hello World</div>
+    <div style="background:#eee; overflow:hidden;">
+      <opti-image src="/assets/cat-2.webp" width="2000"/>
+    </div>
   </div>
 </template>
 <script>
@@ -17,10 +17,12 @@ export default {
 
 <style>
 .opti-image {
-  transition: 1s ease filter;
-  filter: blur(0px);
+  filter: blur(0);
+  opacity: 1;
+  transition: 1s ease filter, 1s ease opacity;
 }
-.opti-image-hidden {
-  filter: blur(30px);
+.opti-image-before-load {
+  filter: blur(20px);
+  opacity: 0;
 }
 </style>
