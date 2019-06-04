@@ -9,10 +9,7 @@
     }"
     :src="shouldDisplay ? smartSrc : ''"
     :style="style"
-    @load="
-      loaded = true;
-      naturalWidth = $refs.image.naturalWidth;
-    "
+    @load="loaded = true"
     @error="shouldDisplay ? (loadError = true) : ''"
     :width="width"
     :height="!responsive ? height : ''"
@@ -32,7 +29,6 @@ export default {
       loaded: false,
       loadError: false,
       clientWidth: 0,
-      naturalWidth: 0
     };
   },
   props: {
@@ -157,7 +153,7 @@ export default {
     },
 
     /**
-     * Go ahead and check for any imgaes in viewport on load and initialize them
+     * Go ahead and check for any images in viewport on load and initialize them
      * Add an scroll event listener to the window
      */
     checkInViewport() {
@@ -178,7 +174,6 @@ export default {
     this.clientWidth = this.$refs.image.clientWidth;
     window.addEventListener("resize", () => {
       this.clientWidth = this.$refs.image.clientWidth;
-      this.naturalWidth = this.$refs.image.naturalWidth;
     });
   },
   destroyed() {
