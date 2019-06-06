@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import OptiImage from "./components/OpiImage";
+import OptiImage from "./components/OptiImage";
 export default {
   name: "App",
   components: {

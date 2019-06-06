@@ -66,8 +66,10 @@ export default {
         : this.backup;
     },
     placeholder() {
-      let type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
-      return `https://via.placeholder.com/${this.width}x${this.height}.${type}`;
+      const type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
+      const width = this.width || 800;
+      const height = this.height || 600;
+      return `https://via.placeholder.com/${width}x${height}.${type}`;
     },
     width() {
       return parseInt(this.$attrs.width) || null;
