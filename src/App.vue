@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <div v-for="index in 50" :key="index">hello</div>
     <div style="background:#eee; overflow:hidden;">
-      <opti-image src="/assets/cat-2.webp" width="2000"/>
+      <opti-image src="/assets/cat-2.webp" width="2000" />
     </div>
   </div>
 </template>

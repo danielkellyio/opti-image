@@ -28,14 +28,14 @@ export default {
       fileTypeShortCuts: ["jpg", "gif", "png", "webp"],
       loaded: false,
       loadError: false,
-      clientWidth: 0,
+      clientWidth: 0
     };
   },
   props: {
     lazy: { type: Boolean, default: true },
     src: { type: String, default: "" },
     backup: { type: String, default: "jpg" },
-    responsive: { type: Boolean, default: true },
+    responsive: { type: Boolean, default: true }
   },
   computed: {
     style() {

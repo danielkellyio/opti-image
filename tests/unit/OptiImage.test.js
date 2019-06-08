@@ -23,6 +23,18 @@ describe("OptiImage Component", () => {
     });
     expect(wrapper.html()).toContain('src="https://via.placeholder');
   });
+  test("error loading image results in 'No Image Found' placeholder", () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg",
+        lazy: false
+      }
+    });
+    wrapper.vm.loadError = true;
+    expect(wrapper.html()).toContain(
+      'src="https://via.placeholder.com/800x600.jpg?text=Image+Not+Found"'
+    );
+  });
   test("file type source results in placeholder of said file type", () => {
     const wrapper = mount(OptiImage, {
       propsData: {
@@ -55,7 +67,7 @@ describe("OptiImage Component", () => {
       propsData: {
         src: "no-support.webp",
         lazy: false,
-        backup: 'png'
+        backup: "png"
       },
       methods: {
         //Must not use arrow function here as this should refer to the component instance
@@ -72,7 +84,7 @@ describe("OptiImage Component", () => {
       propsData: {
         src: "no-support.webp",
         lazy: false,
-        backup: 'completely-different-image.jpg'
+        backup: "completely-different-image.jpg"
       },
       methods: {
         //Must not use arrow function here as this should refer to the component instance
@@ -83,5 +95,62 @@ describe("OptiImage Component", () => {
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.html()).toContain('src="completely-different-image.jpg"');
+  });
+  test("image loads when in viewport if lazy", async () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg"
+      },
+      methods: {
+        inViewport: function() {
+          return true;
+        }
+      }
+    });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.html()).toContain('src="lazy-load-me.jpg"');
+  });
+  test("image does not load when not in viewport if lazy", async () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg"
+      },
+      methods: {
+        inViewport: function() {
+          return false;
+        }
+      }
+    });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.html()).toContain('src=""');
+  });
+  test("image keeps aspect ratio", () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg",
+        width: 500,
+        height: 250
+      }
+    });
+
+    //Mock the imaage as loaded and in a 100px wide container
+    wrapper.vm.loaded = true;
+    wrapper.vm.clientWidth = 100;
+
+    expect(wrapper.vm.style.height).toBe("50px");
+  });
+  test("before image is loaded a space is reserved according to it's aspect ratio", () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg",
+        width: 500,
+        height: 250
+      }
+    });
+
+    //Mock the image tag not loaded in a 100px wide container
+    wrapper.vm.clientWidth = 100;
+
+    expect(wrapper.vm.style.paddingTop).toBe("50%");
   });
 });
