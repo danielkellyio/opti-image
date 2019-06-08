@@ -1,12 +1,12 @@
 {
-  "name": "optimage",
+  "name": "opti-image",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/optiImage.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name optiImage ./src/components/OpiImage.vue",
+    "build-bundle": "vue-cli-service build --target lib --name optiImage ./src/components/OptiImage.vue",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

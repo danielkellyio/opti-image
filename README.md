@@ -1,4 +1,4 @@
-# optimage
+# Opti-Image
 Work in Progress
 
 ## Project setup
