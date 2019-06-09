@@ -122,4 +122,8 @@ Webp with completely different image fallback
 <img src="https://via.placeholder.com/800x600">
 ```
 
+## All feedback and pull requests welcome 
+Help me make images easier to deal with :) 
+
 #### MIT License [https://opensource.org/licenses/MIT]
+
