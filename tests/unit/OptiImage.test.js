@@ -62,12 +62,12 @@ describe("OptiImage Component", () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.html()).toContain('src="no-support.jpg"');
   });
-  test("browsers without webp fallback to backup prop file type", async () => {
+  test("browsers without webp fallback to fallback prop file type", async () => {
     const wrapper = mount(OptiImage, {
       propsData: {
         src: "no-support.webp",
         lazy: false,
-        backup: "png"
+        fallback: "png"
       },
       methods: {
         //Must not use arrow function here as this should refer to the component instance
@@ -79,12 +79,12 @@ describe("OptiImage Component", () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.html()).toContain('src="no-support.png"');
   });
-  test("browsers without webp fallback to backup prop different image", async () => {
+  test("browsers without webp fallback to fallback prop different image", async () => {
     const wrapper = mount(OptiImage, {
       propsData: {
         src: "no-support.webp",
         lazy: false,
-        backup: "completely-different-image.jpg"
+        fallback: "completely-different-image.jpg"
       },
       methods: {
         //Must not use arrow function here as this should refer to the component instance

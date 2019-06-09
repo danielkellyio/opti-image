@@ -34,7 +34,7 @@ export default {
   props: {
     lazy: { type: Boolean, default: true },
     src: { type: String, default: "" },
-    backup: { type: String, default: "jpg" },
+    fallback: { type: String, default: "jpg" },
     responsive: { type: Boolean, default: true }
   },
   computed: {
@@ -61,9 +61,9 @@ export default {
       return file.endsWith(".webp");
     },
     smartBackup() {
-      return this.fileTypeShortCuts.includes(this.backup)
-        ? this.src.replace(/\.webp$/, `.${this.backup}`)
-        : this.backup;
+      return this.fileTypeShortCuts.includes(this.fallback)
+        ? this.src.replace(/\.webp$/, `.${this.fallback}`)
+        : this.fallback;
     },
     placeholder() {
       const type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";

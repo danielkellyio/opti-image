@@ -32,7 +32,7 @@ export default {
 * **src** (String) - path to the image. 
     * If it ends in  .webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp
     * If no src is provided a placeholder image will be displayed (made possible by [placeholder.com](https://placeholder.com/?ref=opti-image))
-* **backup** (String) - defines what image should be used in browsers where webp isn't supported
+* **fallback** (String) - defines what image should be used in browsers where webp isn't supported
     * By default opti-image looks for a .jpg in the same filepath as specified by src 
         * (`my/image/path/image.webp` becomes `my/image/path/image.jpg`)
     * if string of "jpg", "png", or "gif" opti-image looks for that filetype in the same filepath as specified by src
@@ -65,7 +65,7 @@ Webp with jpg fallback
 <!-- Your code ->
 <opti-image src="assets/images/my-image.webp" />
 
-<!-- Result In Webp Supported Browsers->
+<!-- Results In Webp Supported Browsers->
 <img src="assets/images/my-image.webp">
 
 <!-- Results In Browsers WITHOUT Webp Support->
@@ -74,9 +74,9 @@ Webp with jpg fallback
 Webp with custom file type fallback
 ```
 <!-- Your code ->
-<opti-image src="assets/images/my-image.webp" backup="png" />
+<opti-image src="assets/images/my-image.webp" fallback="png" />
 
-<!-- Result In Webp Supported Browsers->
+<!-- Results In Webp Supported Browsers->
 <img src="assets/images/my-image.webp">
 
 <!-- Results In Browsers WITHOUT Webp Support->
@@ -86,9 +86,9 @@ Webp with custom file type fallback
 Webp with completely different image fallback
 ```
 <!-- Your code ->
-<opti-image src="assets/images/my-image.webp" backup="/assets/images/stop-using-safari.jpg" />
+<opti-image src="assets/images/my-image.webp" fallback="/assets/images/stop-using-safari.jpg" />
 
-<!-- Result In Webp Supported Browsers->
+<!-- Results In Webp Supported Browsers->
 <img src="assets/images/my-image.webp">
 
 <!-- Results In Browsers WITHOUT Webp Support->
