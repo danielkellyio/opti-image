@@ -14,6 +14,11 @@ A Vue.js component for handling performant images without the headache.
 npm install github:danielkellyio/opti-image
 ```
 
+##Demo
+See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=opti-image). 
+* Open site in Chrome to see webp's and in Safari to see automatic jpg fallbacks.
+* Lazy load and custom animations on image load used. 
+
 ## Getting Started
 ```
 <template>
