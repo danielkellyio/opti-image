@@ -102,5 +102,19 @@ Webp with completely different image fallback
 <img src="/assets/images/stop-using-safari.jpg">
 ```
 **Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. You can do this manually with websites like [ezgif.com](https://ezgif.com/jpg-to-webp) or you can use automated build tool solutions like [imagemin-webp](https://github.com/imagemin/imagemin-webp) or [bazzite/nuxt-optimized-images](https://github.com/bazzite/nuxt-optimized-images) if you're using nuxt
+## Examples of Placeholder Images
+``` 
+<!-- Your code ->
+<opti-image width="728" height="90" />
+<!-- Results In Webp Supported Browsers->
+<img src="https://via.placeholder.com/728x90" width="728" height="90">
+```
+
+``` 
+<!-- Your code ->
+<opti-image />
+<!-- Results In Webp Supported Browsers->
+<img src="https://via.placeholder.com/800x600">
+```
 
 #### MIT License [https://opensource.org/licenses/MIT]
