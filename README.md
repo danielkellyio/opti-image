@@ -58,3 +58,39 @@ export default {
   opacity: 0;
 }
 ```
+
+## Examples
+Webp with jpg fallback
+```
+<!-- Your code ->
+<opti-image src="assets/images/my-image.webp" />
+
+<!-- Result In Webp Supported Browsers->
+<img src="assets/images/my-image.webp">
+
+<!-- Results In Browsers WITHOUT Webp Support->
+<img src="assets/images/my-image.jpg">
+```
+Webp with custom file type fallback
+```
+<!-- Your code ->
+<opti-image src="assets/images/my-image.webp" backup="png" />
+
+<!-- Result In Webp Supported Browsers->
+<img src="assets/images/my-image.webp">
+
+<!-- Results In Browsers WITHOUT Webp Support->
+<img src="assets/images/my-image.png">
+```
+
+Webp with completely different image fallback
+```
+<!-- Your code ->
+<opti-image src="assets/images/my-image.webp" backup="/assets/images/stop-using-safari.jpg" />
+
+<!-- Result In Webp Supported Browsers->
+<img src="assets/images/my-image.webp">
+
+<!-- Results In Browsers WITHOUT Webp Support->
+<img src="/assets/images/stop-using-safari.jpg">
+```
