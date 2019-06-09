@@ -29,20 +29,20 @@ export default {
 ```
 
 ## Properties
-* *src* (String) - path to the image. 
+* **src** (String) - path to the image. 
     * If it ends in  .webp, opti-image will automatically look for a .jpg in the same filepath for browser that don't support webp
     * If no src is provided a placeholder image will be displayed
-* *lazy* (Boolean) - whether or not the image should be lazy loaded
+* **lazy** (Boolean) - whether or not the image should be lazy loaded
     * Default is true
-* *backup* (Boolean) - defines what image should be used in browsers where webp isn't supported
+* **backup** (Boolean) - defines what image should be used in browsers where webp isn't supported
     * By default opti-image looks for a .jpg in the same filepath as specified by src
     * if string of "jpg", "png", or "gif" opti-image looks for that filetype in the same filepath as specified by src
     * if `/path/to/completely-different-image.jpg` that completely different image will be served
-* *responsive* (Boolean) - whether or not the image should scale and always fit within parent container
+* **responsive** (Boolean) - whether or not the image should scale and always fit within parent container
     * Default is true
     * Aspect ratio determined by width/height properties will still be maintained while image is loading
-* *width* (Integer) - width of the image
-* *height* (Integer) - height of the image
+* **width** (Integer) - width of the image
+* **height** (Integer) - height of the image
 * (note when set to responsive width and height work more to determine aspect ratio than to be a hard and fast width and height )
 
 ## Animating Image in On Load
