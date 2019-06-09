@@ -66,7 +66,7 @@ export default {
 * `opti-image-load-error` - class exists when browser has issue loading image
 * `opti-image-responsive` - class exists when prop responsive is true
 
-## Handling Webp Images Examples
+## Examples of Handling Webp Images 
 Webp with jpg fallback
 ```
 <!-- Your code ->
