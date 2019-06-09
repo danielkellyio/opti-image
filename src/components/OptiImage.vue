@@ -5,7 +5,8 @@
       'opti-image': true,
       'opti-image-before-load': !loaded,
       'opti-image-loaded': loaded,
-      'opti-image-responsive': responsive
+      'opti-image-responsive': responsive,
+      'opti-image-load-error': loadError
     }"
     :src="shouldDisplay ? smartSrc : ''"
     :style="style"
