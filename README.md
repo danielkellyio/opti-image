@@ -32,14 +32,14 @@ export default {
 * **src** (String) - path to the image. 
     * If it ends in  .webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp
     * If no src is provided a placeholder image will be displayed (made possible by [placeholder.com](https://placeholder.com/?ref=opti-image))
-* **lazy** (Boolean) - whether or not the image should be lazy loaded
-    * Default is true
-    * Lazy loading means that the image request is only made once the image tag makes it into the viewport. This increases site performance and saves visitors bandwidth by only downloading images that are actually viewed. 
-    * Turn off lazy loading (`:lazy="false"`) to have all images load on page load
 * **backup** (Boolean) - defines what image should be used in browsers where webp isn't supported
     * By default opti-image looks for a .jpg in the same filepath as specified by src
     * if string of "jpg", "png", or "gif" opti-image looks for that filetype in the same filepath as specified by src
     * if `/path/to/completely-different-image.jpg` that completely different image will be served
+* **lazy** (Boolean) - whether or not the image should be lazy loaded
+    * Default is true
+    * Lazy loading means that the image request is only made once the image tag makes it into the viewport. This increases site performance and saves visitors bandwidth by only downloading images that are actually viewed. 
+    * Turn off lazy loading (`:lazy="false"`) to have all images load on page load
 * **responsive** (Boolean) - whether or not the image should scale and always fit within parent container
     * Default is true
     * Aspect ratio determined by width/height properties will still be maintained while image is loading
