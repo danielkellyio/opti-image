@@ -66,7 +66,7 @@ export default {
 * opti-image-load-error - class exists when browser has issue loading image
 * opti-image-responsive - class exists when prop responsive is true
 
-## Examples
+## Handling Webp Images Examples
 Webp with jpg fallback
 ```
 <!-- Your code ->
@@ -101,3 +101,4 @@ Webp with completely different image fallback
 <!-- Results In Browsers WITHOUT Webp Support->
 <img src="/assets/images/stop-using-safari.jpg">
 ```
+**Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. You can do this manually with websites like [ezgif.com](https://ezgif.com/jpg-to-webp) or you can use automated build tool solutions like [imagemin-webp](https://github.com/imagemin/imagemin-webp) or [bazzite/nuxt-optimized-images](https://github.com/bazzite/nuxt-optimized-images) if you're using nuxt
