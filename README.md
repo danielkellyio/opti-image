@@ -60,11 +60,11 @@ export default {
 ```
 
 ## Helpful Classes
-* opti-image - static class on all <opti-image> images
-* opti-image-before-load - class exists before image is loaded
-* opti-image-loaded - class exists as soon as image loads
-* opti-image-load-error - class exists when browser has issue loading image
-* opti-image-responsive - class exists when prop responsive is true
+* `opti-image` - static class on all <opti-image> images
+* `opti-image-before-load` - class exists before image is loaded
+* `opti-image-loaded` - class exists as soon as image loads
+* `opti-image-load-error` - class exists when browser has issue loading image
+* `opti-image-responsive` - class exists when prop responsive is true
 
 ## Handling Webp Images Examples
 Webp with jpg fallback
