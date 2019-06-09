@@ -33,7 +33,7 @@ export default {
     * If it ends in  .webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp
     * If no src is provided a placeholder image will be displayed (made possible by [placeholder.com](https://placeholder.com/?ref=opti-image))
 * **backup** (String) - defines what image should be used in browsers where webp isn't supported
-    * By default opti-image looks for a .jpg in the same filepath as specified by src
+    * By default opti-image looks for a .jpg in the same filepath as specified by src (`my/image/path/image.webp` becomes `my/image/path/image.jpg`)
     * if string of "jpg", "png", or "gif" opti-image looks for that filetype in the same filepath as specified by src
     * if `/path/to/completely-different-image.jpg` that completely different image will be served
 * **lazy** (Boolean) - whether or not the image should be lazy loaded
