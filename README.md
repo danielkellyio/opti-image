@@ -51,14 +51,10 @@ export default {
 ## Animating Image in On Load
 ```
 .opti-image {
-  filter: blur(0);
   opacity: 1;
-  transform: scale(1);
-  transition: 0.4s ease filter, 0.5s ease opacity, 0.3s ease scale;
+  transition: 0.5s ease opacity;
 }
 .opti-image-before-load {
-  filter: blur(20px);
   opacity: 0;
-  transform: scale(0.8);
 }
 ```
