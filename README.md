@@ -5,8 +5,6 @@ A Vue.js component for handling performant images without the headache.
 * Space reserved according to aspect ratio to prevent page jumping upon image load
 * Built in support for [placeholder.com](https://placeholder.com/?ref=opti-image) for handy placeholder images during development
 * Works with Nuxt.js (SSR)
-* 26kb minified
-
 
 ## Installation
 ```
