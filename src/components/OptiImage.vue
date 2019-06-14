@@ -9,6 +9,7 @@
       'opti-image-load-error': loadError
     }"
     :src="shouldDisplay ? smartSrc : ''"
+    :srcset="shouldDisplay ? smartSrcset : ''"
     :style="style"
     @load="loaded = true"
     @error="shouldDisplay ? (loadError = true) : ''"
@@ -36,7 +37,8 @@ export default {
     lazy: { type: Boolean, default: true },
     src: { type: String, default: "" },
     fallback: { type: String, default: "jpg" },
-    responsive: { type: Boolean, default: true }
+    responsive: { type: Boolean, default: true },
+    srcset: { type: String, default: "" }
   },
   computed: {
     style() {
@@ -63,8 +65,14 @@ export default {
     },
     smartBackup() {
       return this.fileTypeShortCuts.includes(this.fallback)
-        ? this.src.replace(/\.webp$/, `.${this.fallback}`)
+        ? this.src.replace(/\.webp$/i, `.${this.fallback}`)
         : this.fallback;
+    },
+    smartSrcset() {
+      if (this.loadError) return this.srcOnError;
+      return this.webpSupported
+        ? this.srcset
+        : this.srcset.replace(/\.webp /gi, `.${this.fallback} `);
     },
     placeholder() {
       const type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
@@ -149,7 +157,7 @@ export default {
      * For lazy loading, init the image not on load but when it's in the viewport
      */
     initImageWhenInViewport() {
-      if (this.inViewport()) {
+      if (this.inViewport() && !this.inViewPortOnce) {
         this.inViewPortOnce = true;
         this.initImage();
       }
