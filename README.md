@@ -20,7 +20,7 @@ Vue.use(OptiImagePlugin)
 #### Use In One Component
 ```
 <script>
-import OptiImage from 'opti-image'
+import { OptiImage } from 'opti-image'
 export default {
     components: {OptiImage}
 }
