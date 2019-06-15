@@ -19,7 +19,6 @@
 </template>
 
 <script>
-//TODO: Srcset support
 export default {
   name: "OptiImage",
   data() {
