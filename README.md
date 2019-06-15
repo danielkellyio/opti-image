@@ -8,7 +8,7 @@ A Vue.js component for handling performant images without the headache.
 
 ## Installation
 ```
-npm install github:danielkellyio/opti-image
+npm i opti-image
 ```
 
 #### Global Use
