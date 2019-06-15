@@ -11,23 +11,54 @@ A Vue.js component for handling performant images without the headache.
 npm install github:danielkellyio/opti-image
 ```
 
-## Demo
-See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=opti-image). 
-* Open site in Chrome to see `webp`'s and in Safari to see automatic `jpg` fallbacks.
-* Lazy load and custom animations on image load used. 
-
-## Getting Started
+#### Global Use
 ```
-<template>
-    <opti-image src="my-image.webp" />
-</template>
-
+//Main.js or similar
+import OptiImagePlugin from 'opti-image'
+Vue.use(OptiImagePlugin)
+```
+#### Use In One Component
+```
 <script>
 import OptiImage from 'opti-image'
 export default {
     components: {OptiImage}
 }
 </script> 
+```
+
+## Demo
+See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=opti-image). 
+* Open site in Chrome to see `webp`'s and in Safari to see automatic `jpg` fallbacks.
+* Lazy load and custom animations on image load used. 
+
+## Getting Started
+
+```
+<template>
+    <!-- Basic Usage -->
+    <opti-image src="my-image.webp" />
+    
+    <!-- No lazy load -->
+    <opti-image src="my-image.webp" :lazy="false" />
+    
+    <!-- Sized Placeholder -->
+    <opti-image width="500" height="350" />
+    
+    <!-- Restrained to Container -->
+    <opti-image src="my-image.webp"  :responsive="true" />
+    
+    <!-- With Srcset -->
+    <opti-image 
+        src="my-image.webp"
+        srcset="my-image-320w.webp 320w,
+                my-image-480w.webp 480w,
+                my-image-800w.webp 800w"
+        sizes="(max-width: 320px) 280px,
+               (max-width: 480px) 440px,
+                800px" 
+    />
+</template>
 ```
 
 ## Properties
