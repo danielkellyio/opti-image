@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import OptiImage from "../../src/components/OptiImage";
+import { OptiImage } from "../../src/plugin";
 
 describe("OptiImage Component", () => {
   test(".webp source checks support", () => {
