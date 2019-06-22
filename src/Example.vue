@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-    <div v-for="index in 50" :key="index">hello</div>
+    <div>Image Not Loaded Scroll Down</div>
+    <div v-for="index in 50" :key="index">Keep Scrolling</div>
+    <div>Image Loaded</div>
     <div style="background:#eee; overflow:hidden;">
-      <opti-image
-        src="/assets/cat-2.webp"
-        srcset="
-             /assets/cat-2.webp 320w,
-             /assets/cat-2.webp 480w,
-             /assets/cat-2.webp 800w"
-        width="2000"
-      />
+      <opti-image src="assets/cat.webp" />
     </div>
   </div>
 </template>
