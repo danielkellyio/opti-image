@@ -19,7 +19,7 @@ module.exports = {
           {
             test: /\.(jpe?g|png|webp)/,
             options: {
-              sizes: [1200, 800, 400]
+              sizes: [800, 480, 320]
             }
           }
         ]
