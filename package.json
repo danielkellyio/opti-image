@@ -31,7 +31,6 @@
     "imagemin-webp-webpack-plugin": "^3.1.0",
     "node-sass": "^4.9.0",
     "opti-image-webpack-plugin": "github:danielkellyio/opti-image-webpack-plugin",
-    "responsive-loader": "^1.2.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
