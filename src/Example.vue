@@ -4,10 +4,7 @@
     <div v-for="index in 50" :key="index">Keep Scrolling</div>
     <div>Image Loaded</div>
     <div style="background:#eee; overflow:hidden;">
-      <opti-image
-        src="assets/cat.webp"
-        width="2000"
-      />
+      <opti-image src="assets/cat.webp" width="2000" />
     </div>
   </div>
 </template>
