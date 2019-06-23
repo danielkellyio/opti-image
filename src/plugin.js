@@ -1,8 +1,17 @@
 import OptiImage from "./components/OptiImage";
 const plugin = {
-  install(Vue, options = { srcsetSizes: [] }) {
+  install(Vue, options = { sizes: [] }) {
     Vue.component(OptiImage.name, OptiImage);
-    Vue.optiImageSrcsetSizes = options.srcsetSizes;
+    Vue.mixin({
+      data() {
+        return {
+          get optiImageSizes() {
+            return options.sizes;
+          }
+        };
+      }
+    });
+    Vue.$optiImageSizes = options.sizes;
   }
 };
 export { OptiImage };

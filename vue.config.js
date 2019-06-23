@@ -1,3 +1,4 @@
+const imageSizes = require("./images-sizes");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const OptiImageWebpackPlugin = require("opti-image-webpack-plugin");
 
@@ -19,7 +20,7 @@ module.exports = {
           {
             test: /\.(jpe?g|png|webp)/,
             options: {
-              sizes: [800, 480, 320]
+              sizes: imageSizes
             }
           }
         ]

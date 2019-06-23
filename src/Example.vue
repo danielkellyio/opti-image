@@ -7,9 +7,6 @@
       <opti-image
         src="assets/cat.webp"
         width="2000"
-        srcset="assets/cat-320.webp 320w,
-             assets/cat-480.webp 480w,
-             assets/cat-800.webp 800w"
       />
     </div>
   </div>

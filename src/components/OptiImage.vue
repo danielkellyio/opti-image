@@ -69,9 +69,28 @@ export default {
     },
     smartSrcset() {
       if (this.loadError) return this.srcOnError;
+      if (this.optiImageSizes && !this.srcset) {
+        return this.srcSetFromGlobal;
+      }
       return this.webpSupported
         ? this.srcset
         : this.srcset.replace(/\.webp /gi, `.${this.fallback} `);
+    },
+    srcSetFromGlobal() {
+      let outputName = this.src,
+        tempName = outputName,
+        ext = tempName.split(".").pop();
+
+      outputName = outputName
+        .split(".")
+        .slice(0, -1)
+        .join(".");
+
+      return this.optiImageSizes
+        .map(size => {
+          return `${outputName}-${size}.${ext} ${size}w`;
+        })
+        .join(",");
     },
     placeholder() {
       const type = this.fileTypeShortCuts.includes(this.src) ? this.src : "jpg";
