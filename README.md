@@ -41,8 +41,16 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 
 ```
 <template>
+    // NOTE: All of the below automatically have srcset if sizes set in plugin options
+    
     <!-- Basic Usage with Lazy Loading and Webp Fallbacks -->
     <opti-image src="my-image.webp" />
+    
+    <!-- Fallback to png in unsupported browser -->
+    <opti-image src="my-image.webp" fallback="png" />
+     
+    <!-- Fallback to completely different image in unsupported browser -->
+    <opti-image src="my-image.webp" fallback="completely/different/image.jpg" />
     
     <!-- No lazy load -->
     <opti-image src="my-image.webp" :lazy="false" />
@@ -55,8 +63,7 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
     
     <!-- Not Restrained to Container -->
     <opti-image src="my-image.webp"  :responsive="false" />
-    
-    // All of the above automatically have srcset if sizes set in plugin options
+
 </template>
 ```
 
@@ -88,56 +95,7 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 * `opti-image-load-error` - class exists when browser has issue loading image
 * `opti-image-responsive` - class exists when prop responsive is true
 
-## Examples of Handling Webp Images 
-Webp with jpg fallback
-```
-<!-- Your code ->
-<opti-image src="assets/images/my-image.webp" />
-
-<!-- Results In Webp Supported Browsers->
-<img src="assets/images/my-image.webp">
-
-<!-- Results In Browsers WITHOUT Webp Support->
-<img src="assets/images/my-image.jpg">
-```
-Webp with custom file type fallback
-```
-<!-- Your code ->
-<opti-image src="assets/images/my-image.webp" fallback="png" />
-
-<!-- Results In Webp Supported Browsers->
-<img src="assets/images/my-image.webp">
-
-<!-- Results In Browsers WITHOUT Webp Support->
-<img src="assets/images/my-image.png">
-```
-
-Webp with completely different image fallback
-```
-<!-- Your code ->
-<opti-image src="assets/images/my-image.webp" fallback="/assets/images/stop-using-safari.jpg" />
-
-<!-- Results In Webp Supported Browsers->
-<img src="assets/images/my-image.webp">
-
-<!-- Results In Browsers WITHOUT Webp Support->
-<img src="/assets/images/stop-using-safari.jpg">
-```
-**Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. You can do this manually with websites like [ezgif.com](https://ezgif.com/jpg-to-webp) or you can use automated build tool solutions like [imagemin-webp](https://github.com/imagemin/imagemin-webp) or [bazzite/nuxt-optimized-images](https://github.com/bazzite/nuxt-optimized-images) if you're using nuxt
-## Examples of Placeholder Images
-``` 
-<!-- Your code ->
-<opti-image width="728" height="90" />
-<!-- Results In Webp Supported Browsers->
-<img src="https://via.placeholder.com/728x90" width="728" height="90">
-```
-
-``` 
-<!-- Your code ->
-<opti-image />
-<!-- Results In Webp Supported Browsers->
-<img src="https://via.placeholder.com/800x600">
-```
+**Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. But don't worry, I found this painful too so a created a webpack plugin that fits perfectly with opti-image to take care of this: [opti-image-webpack-plugin](https://github.com/danielkellyio/opti-image-webpack-plugin)
 
 #### All feedback and pull requests welcome!
 
