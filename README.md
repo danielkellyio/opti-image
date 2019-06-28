@@ -5,7 +5,7 @@ A Vue.js component for handling performant images without the headache.
 * Set standard srcset once in plugin options and it automatically applies to all opti-image components
 * Pair with `opti-image-webpack-plugin` to automatically create images at different sizes for your srcsets as well as adjust image quality for the smallest size images possible
 * Space reserved according to aspect ratio to prevent page jumping upon image load
-* Renders just a plain old <img> tag, no wrappers, for a drop in replacement for your current <img>'s
+* Renders just a plain old img tag, no wrappers, for a drop in replacement for your current img's
 * Built in support for [placeholder.com](https://placeholder.com/?ref=opti-image) for handy placeholder images during development
 * Works with Nuxt.js (SSR)
 
