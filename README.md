@@ -70,7 +70,7 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 ## Props
 | prop | Description | Type | Default | Notes |
 |------------|------------------------------------------------------------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------------------------|
-| src | path to the image | String | "" | If it ends in,.webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp |
+| src | path to the image | String | "" | If it ends in .webp opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp |
 | fallback | defines what image should be used in browsers where webp isn't supported | String | "jpg" | extension only (no dot) = image in same location just different extension or provide a full path |
 | lazy | whether or not the image should be lazy loaded | Boolean | true |  |
 | responsive | whether or not the image should scale and always fit within parent container | Boolean | true | Aspect ratio determined by width/height properties will still be maintained while image is loading |
