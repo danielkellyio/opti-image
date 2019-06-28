@@ -3,7 +3,6 @@ A Vue.js component for handling performant images without the headache.
 * Webp's with fallbacks for unsupported browsers (even in srcset)
 * Lazy loading out of the box
 * Set standard srcset once in plugin options and it automatically applies to all opti-image components
-* Pair with `opti-image-webpack-plugin` to automatically create images at different sizes for your srcsets as well as adjust image quality for the smallest size images possible
 * Space reserved according to aspect ratio to prevent page jumping upon image load
 * Renders just a plain old img tag, no wrappers, for a drop in replacement for your current img's
 * Built in support for [placeholder.com](https://placeholder.com/?ref=opti-image) for handy placeholder images during development
@@ -95,7 +94,7 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 * `opti-image-load-error` - class exists when browser has issue loading image
 * `opti-image-responsive` - class exists when prop responsive is true
 
-**Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. But don't worry, I found this painful too so a created a webpack plugin that fits perfectly with opti-image to take care of this: [opti-image-webpack-plugin](https://github.com/danielkellyio/opti-image-webpack-plugin)
+**Important** Note that while opti-image takes away the pain of serving webp's it doesn't do anything to generate them! The webp's and their fallbacks must already exist. Bring your own webpack loaders to the table to accomplish this.
 
 #### All feedback and pull requests welcome!
 
