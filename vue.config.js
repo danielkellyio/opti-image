@@ -20,7 +20,8 @@ module.exports = {
           {
             test: /\.(jpe?g|png|webp)/,
             options: {
-              sizes: imageSizes
+              sizes: [1024, 768, 400],
+              quality: 50
             }
           }
         ]
