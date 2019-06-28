@@ -2,7 +2,10 @@
 A Vue.js component for handling performant images without the headache.
 * Webp's with fallbacks for unsupported browsers (even in srcset)
 * Lazy loading out of the box
+* Set standard srcset once in plugin options and it automatically applies to all opti-image components
+* Pair with `opti-image-webpack-plugin` to automatically create images at different sizes for your srcsets as well as adjust image quality for the smallest size images possible
 * Space reserved according to aspect ratio to prevent page jumping upon image load
+* Renders just a plain old <img> tag, no wrappers, for a drop in replacement for your current <img>'s
 * Built in support for [placeholder.com](https://placeholder.com/?ref=opti-image) for handy placeholder images during development
 * Works with Nuxt.js (SSR)
 
@@ -15,7 +18,9 @@ npm i opti-image
 ```
 //Main.js or similar
 import OptiImagePlugin from 'opti-image'
-Vue.use(OptiImagePlugin)
+Vue.use(OptiImagePlugin, {
+    sizes: [1024, 768, 400]
+})
 ```
 #### Use In One Component
 ```
@@ -36,7 +41,7 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 
 ```
 <template>
-    <!-- Basic Usage -->
+    <!-- Basic Usage with Lazy Loading and Webp Fallbacks -->
     <opti-image src="my-image.webp" />
     
     <!-- No lazy load -->
@@ -45,41 +50,25 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
     <!-- Sized Placeholder -->
     <opti-image width="500" height="350" />
     
-    <!-- Restrained to Container -->
-    <opti-image src="my-image.webp"  :responsive="true" />
+    <!-- Default 800 x 600 Placeholder -->
+    <opti-image/>  
     
-    <!-- With Srcset -->
-    <opti-image 
-        src="my-image.webp"
-        srcset="my-image-320w.webp 320w,
-                my-image-480w.webp 480w,
-                my-image-800w.webp 800w"
-        sizes="(max-width: 320px) 280px,
-               (max-width: 480px) 440px,
-                800px" 
-    />
+    <!-- Not Restrained to Container -->
+    <opti-image src="my-image.webp"  :responsive="false" />
+    
+    // All of the above automatically have srcset if sizes set in plugin options
 </template>
 ```
 
-## Properties
-* **src** (String) - path to the image. 
-    * If it ends in  .webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp
-    * If no src is provided a placeholder image will be displayed (made possible by [placeholder.com](https://placeholder.com/?ref=opti-image))
-* **fallback** (String) - defines what image should be used in browsers where webp isn't supported
-    * By default opti-image looks for a .jpg in the same filepath as specified by src 
-        * (`my/image/path/image.webp` becomes `my/image/path/image.jpg`)
-    * if string of "jpg", "png", or "gif" opti-image looks for that filetype in the same filepath as specified by src
-    * if `/path/to/completely-different-image.jpg` that completely different image will be served
-* **lazy** (Boolean) - whether or not the image should be lazy loaded
-    * Default is true
-    * Lazy loading means that the image request is only made once the image tag makes it into the viewport. This increases site performance and saves visitors bandwidth by only downloading images that are actually viewed. 
-    * Turn off lazy loading (`:lazy="false"`) to have all images load on page load
-* **responsive** (Boolean) - whether or not the image should scale and always fit within parent container
-    * Default is true
-    * Aspect ratio determined by width/height properties will still be maintained while image is loading
-* **width** (Integer) - width of the image
-* **height** (Integer) - height of the image
-* (note when set to responsive width and height work more to determine aspect ratio than to be a hard and fast width and height )
+## Props
+| prop | Description | Type | Default | Notes |
+|------------|------------------------------------------------------------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------------------------|
+| src | path to the image | String | "" | If it ends in,.webp, opti-image will automatically look for a .jpg in the same filepath for browsers that don't support .webp |
+| fallback | defines what image should be used in browsers where webp isn't supported | String | "jpg" | extension only (no dot) = image in same location just different extension or provide a full path |
+| lazy | whether or not the image should be lazy loaded | Boolean | true |  |
+| responsive | whether or not the image should scale and always fit within parent container | Boolean | true | Aspect ratio determined by width/height properties will still be maintained while image is loading |
+| width | width of the image | Integer | null | width and height must be provided to reserve space for the image |
+| height | height of the image | Integer | null | when set to responsive, width and height work more to determine aspect ratio than to be a hard and fast width and height |
 
 ## Animating Image in On Load
 ```
