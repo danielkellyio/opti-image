@@ -3,6 +3,7 @@ const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const OptiImageWebpackPlugin = require("opti-image-webpack-plugin");
 
 module.exports = {
+  css: { extract: false },
   configureWebpack: {
     plugins: [
       new ImageminWebpWebpackPlugin({
