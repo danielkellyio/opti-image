@@ -1,11 +1,11 @@
 {
   "name": "opti-image",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "main": "./dist/optiImage.common.js",
   "unpkg": "./dist/optiImage.umd.min.js",
   "browser": {
-    "./ssr": "src/plugin.js"
+    "opti-image-ssr": "./src/plugin.js"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
