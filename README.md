@@ -10,8 +10,9 @@ A Vue.js component for handling performant images without the headache.
 
 ## Installation
 ```
-npm i opti-image
+npm i opti-image vue-runtime-helpers --save
 ```
+**Be sure to install ` vue-runtime-helpers` along with opti-image as it depends on it**
 
 #### Global Use
 ```
