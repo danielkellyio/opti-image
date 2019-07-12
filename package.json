@@ -1,6 +1,7 @@
 {
   "name": "opti-image",
-  "version": "0.8.0",
+  "homepage": "https://github.com/danielkellyio/opti-image",
+  "version": "0.9.0",
   "license": "MIT",
   "main": "./dist/index.js",
   "unpkg": "./dist/index.iife.js",
