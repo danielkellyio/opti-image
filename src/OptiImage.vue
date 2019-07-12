@@ -47,6 +47,19 @@ export default {
         style.height = 0;
         style.paddingTop = `${this.aspectRatio}%`;
       }
+      
+      //Put all styles in here to make use in ssr easier
+      style.minHeight = '1px';
+      
+      if(!this.loaded){
+        style.visibility = 'hidden';
+      }
+      
+      if(this.responsive){
+        style.maxWidth = '100%';
+        style.display = 'block';
+        style.objectFit = 'cover';
+      }
 
       if (this.aspectRatio && this.loaded && this.responsive) {
         style.height = `${this.clientWidth * (this.aspectRatio / 100)}px`;
@@ -210,17 +223,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-img {
-  min-height: 1px;
-}
-.opti-image-before-load {
-  visibility: hidden;
-}
-.opti-image-responsive {
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
-}
-</style>

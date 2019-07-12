@@ -1,4 +1,4 @@
-import OptiImage from "./components/OptiImage";
+import OptiImage from "./OptiImage.vue";
 const plugin = {
   install(Vue, options = { sizes: [] }) {
     Vue.component(OptiImage.name, OptiImage);
