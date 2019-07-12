@@ -1,8 +1,9 @@
 {
   "name": "opti-image",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "license": "MIT",
   "main": "./dist/index.js",
+  "unpkg": "./dist/index.iife.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "bili --no-babelrc && npm run build:unpkg",
