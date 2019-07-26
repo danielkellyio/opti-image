@@ -31,7 +31,6 @@ var __vue_normalize__ = _interopDefault(require('vue-runtime-helpers/dist/normal
 //
 //
 //
-//
 var script = {
   name: "OptiImage",
   data: function data() {
@@ -50,6 +49,10 @@ var script = {
       type: Boolean,
       default: true
     },
+    webp: {
+      type: Boolean,
+      default: false
+    },
     src: {
       type: String,
       default: ""
@@ -65,6 +68,10 @@ var script = {
     srcset: {
       type: String,
       default: ""
+    },
+    disablePlaceholder: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -101,6 +108,7 @@ var script = {
       return this.height / this.width * 100;
     },
     isWebP: function isWebP() {
+      if (this.webp) return true;
       var file = this.src.split("?")[0];
       return file.endsWith(".webp");
     },
@@ -110,16 +118,16 @@ var script = {
     smartSrcset: function smartSrcset() {
       if (this.loadError) return this.srcOnError;
 
-      if (this.optiImageSizes && !this.srcset) {
+      if (this.optiImageSizes && this.optiImageSizes.length && !this.srcset) {
         return this.srcSetFromGlobal;
       }
 
-      return this.webpSupported ? this.srcset : this.srcset.replace(/\.webp /gi, ".".concat(this.fallback, " "));
+      return this.webpSupported ? this.webp ? this.srcset.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp') : this.srcset : this.srcset.replace(/\.webp /gi, ".".concat(this.fallback, " "));
     },
     srcSetFromGlobal: function srcSetFromGlobal() {
       var outputName = this.src,
           tempName = outputName,
-          ext = tempName.split(".").pop();
+          ext = this.webp && this.webpSupported ? 'webp' : tempName.split(".").pop();
       outputName = outputName.split(".").slice(0, -1).join(".");
       return this.optiImageSizes.map(function (size) {
         return "".concat(outputName, "-").concat(size, ".").concat(ext, " ").concat(size, "w");
@@ -138,14 +146,21 @@ var script = {
       return parseInt(this.$attrs.height) || null;
     },
     srcOnError: function srcOnError() {
-      return this.placeholder + "?text=Image+Not+Found";
+      return this.disablePlaceholder ? '' : this.placeholder + "?text=Image+Not+Found";
     },
     usesPlaceholder: function usesPlaceholder() {
+      if (this.disablePlaceholder) return false;
       return !this.src || this.fileTypeShortCuts.includes(this.src);
     },
     smartSrc: function smartSrc() {
       if (this.loadError) return this.srcOnError;
       if (this.usesPlaceholder) return this.placeholder;
+
+      if (this.webp && this.webpSupported) {
+        console.log('foreced webp source', this.src.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp'));
+        return this.src.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp');
+      }
+
       if (!this.isWebP || this.webpSupported) return this.src;
       return this.smartBackup;
     },
@@ -188,58 +203,33 @@ var script = {
     },
 
     /**
-     * Check if the image is in the viewport
-     * @returns {boolean}
-     */
-    inViewport: function inViewport() {
-      var elem = this.$refs.image;
-
-      var _elem$getBoundingClie = elem.getBoundingClientRect(),
-          top = _elem$getBoundingClie.top,
-          bottom = _elem$getBoundingClie.bottom;
-
-      var vHeight = window.innerHeight || document.documentElement.clientHeight;
-      return (top > 0 || bottom > 0) && top < vHeight;
-    },
-
-    /**
      * For lazy loading, init the image not on load but when it's in the viewport
      */
     initImageWhenInViewport: function initImageWhenInViewport() {
-      if (this.inViewport() && !this.inViewPortOnce) {
-        this.inViewPortOnce = true;
-        this.initImage();
-      }
-    },
+      var _this2 = this;
 
-    /**
-     * Go ahead and check for any images in viewport on load and initialize them
-     * Add an scroll event listener to the window
-     */
-    checkInViewport: function checkInViewport() {
-      if (this.lazy) {
-        this.initImageWhenInViewport();
+      if (!this.lazy) return;
+      var observer = new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting && !_this2.inViewPortOnce) {
+          _this2.inViewPortOnce = true;
 
-        if (window) {
-          window.addEventListener("scroll", this.initImageWhenInViewport);
+          _this2.initImage();
         }
-      }
+      });
+      observer.observe(this.$el);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     //For lazy load check which images are in viewport and load accordingly
-    if (this.lazy) this.checkInViewport(); //For non-lazy load go ahead and init the image
+    if (this.lazy) this.initImageWhenInViewport(); //For non-lazy load go ahead and init the image
 
     if (!this.lazy) this.initImage();
-    this.clientWidth = this.$refs.image.clientWidth;
+    this.clientWidth = this.$el.clientWidth;
     window.addEventListener("resize", function () {
-      _this2.clientWidth = _this2.$refs.image.clientWidth;
+      _this3.clientWidth = _this3.$el.clientWidth;
     });
-  },
-  destroyed: function destroyed() {
-    window.removeEventListener("scroll", this.initImageWhenInViewport);
   }
 };
 
@@ -255,7 +245,6 @@ var __vue_render__ = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('img', {
-    ref: "image",
     class: {
       'opti-image': true,
       'opti-image-before-load': !_vm.loaded,

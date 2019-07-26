@@ -1,7 +1,16 @@
 {
   "name": "opti-image",
   "homepage": "https://github.com/danielkellyio/opti-image",
-  "keywords":["vuejs", "vue", "image optization", "image lazy load", "image webp", "vue images", "vuejs images", "performant images vuejs"],
+  "keywords": [
+    "vuejs",
+    "vue",
+    "image optization",
+    "image lazy load",
+    "image webp",
+    "vue images",
+    "vuejs images",
+    "performant images vuejs"
+  ],
   "version": "0.9.3",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -9,14 +18,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "bili --no-babelrc && npm run build:unpkg",
-  	"build:unpkg" : "bili --format iife",
+    "build:unpkg": "bili --format iife",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
-    "vue-runtime-helpers" : "^1.0.1"
+    "vue-runtime-helpers": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",

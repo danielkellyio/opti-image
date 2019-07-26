@@ -35,6 +35,31 @@ describe("OptiImage Component", () => {
       'src="https://via.placeholder.com/800x600.jpg?text=Image+Not+Found"'
     );
   });
+  test("disabling placeholder results in no placeholder on no source", () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "",
+        lazy: false,
+        disablePlaceholder: true
+      }
+    });
+    expect(wrapper.html()).not.toContain(
+      'src="https://via.placeholder.com'
+    );
+  });
+  test("disabling placeholder results in no placeholder on error loading", () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "lazy-load-me.jpg",
+        lazy: false,
+        disablePlaceholder: true
+      }
+    });
+    wrapper.vm.loadError = true;
+    expect(wrapper.html()).not.toContain(
+      'src="https://via.placeholder.com/800x600.jpg?text=Image+Not+Found"'
+    );
+  });
   test("file type source results in placeholder of said file type", () => {
     const wrapper = mount(OptiImage, {
       propsData: {
@@ -102,8 +127,8 @@ describe("OptiImage Component", () => {
         src: "lazy-load-me.jpg"
       },
       methods: {
-        inViewport: function() {
-          return true;
+        initImageWhenInViewport: function(){
+            this.inViewPortOnce = true
         }
       }
     });
@@ -116,8 +141,8 @@ describe("OptiImage Component", () => {
         src: "lazy-load-me.jpg"
       },
       methods: {
-        inViewport: function() {
-          return false;
+        initImageWhenInViewport: function(){
+          this.inViewPortOnce = false
         }
       }
     });
@@ -127,9 +152,10 @@ describe("OptiImage Component", () => {
   test("image keeps aspect ratio", () => {
     const wrapper = mount(OptiImage, {
       propsData: {
-        src: "lazy-load-me.jpg",
+        src: "constrained-to-aspect-ratio.jpg",
         width: 500,
-        height: 250
+        height: 250,
+        lazy:false
       }
     });
 
@@ -144,7 +170,8 @@ describe("OptiImage Component", () => {
       propsData: {
         src: "lazy-load-me.jpg",
         width: 500,
-        height: 250
+        height: 250,
+        lazy: false
       }
     });
 
@@ -152,5 +179,18 @@ describe("OptiImage Component", () => {
     wrapper.vm.clientWidth = 100;
 
     expect(wrapper.vm.style.paddingTop).toBe("50%");
+  });
+  test("image loads webp even if src has other extension when webp = true", async () => {
+    const wrapper = mount(OptiImage, {
+      propsData: {
+        src: "image-from-webpack-loader.jpg",
+        webp: true,
+        lazy: false
+      }
+    });
+    wrapper.vm.webpChecked = true;
+    wrapper.vm.webpSupported = true;
+    await wrapper.vm.$nextTick();
+    expect(wrapper.html()).toContain('src="image-from-webpack-loader.webp"');
   });
 });

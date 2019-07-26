@@ -7,7 +7,7 @@
     </p>
     <p>Now the image is loaded!</p>
     <div class="image-wrapper">
-      <opti-image src="https://picsum.photos/1800/900" width="1800" height="900"></opti-image>
+      <opti-image src="cat.webp" width="1800" height="900"></opti-image>
     </div>
     
   </div>

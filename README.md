@@ -1,7 +1,7 @@
 # Opti-Image
 A Vue.js component for handling performant images without the headache.
 * Webp's with fallbacks for unsupported browsers (even in srcset)
-* Lazy loading out of the box
+* Lazy loading out of the box (uses Intersection Observer)
 * Set standard srcset once in plugin options and it automatically applies to all opti-image components
 * Space reserved according to aspect ratio to prevent page jumping upon image load
 * Renders just a plain old img tag, no wrappers, for a drop in replacement for your current img's

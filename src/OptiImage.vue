@@ -1,6 +1,5 @@
 <template>
   <img
-    ref="image"
     :class="{
       'opti-image': true,
       'opti-image-before-load': !loaded,
@@ -34,10 +33,12 @@ export default {
   },
   props: {
     lazy: { type: Boolean, default: true },
+    webp: { type: Boolean, default: false },
     src: { type: String, default: "" },
     fallback: { type: String, default: "jpg" },
     responsive: { type: Boolean, default: true },
-    srcset: { type: String, default: "" }
+    srcset: { type: String, default: "" },
+    disablePlaceholder: { type: Boolean, default: false }
   },
   computed: {
     style() {
@@ -72,6 +73,7 @@ export default {
       return (this.height / this.width) * 100;
     },
     isWebP() {
+      if( this.webp ) return true
       let file = this.src.split("?")[0];
       return file.endsWith(".webp");
     },
@@ -82,17 +84,17 @@ export default {
     },
     smartSrcset() {
       if (this.loadError) return this.srcOnError;
-      if (this.optiImageSizes && !this.srcset) {
+      if (this.optiImageSizes && this.optiImageSizes.length && !this.srcset) {
         return this.srcSetFromGlobal;
       }
       return this.webpSupported
-        ? this.srcset
+        ? this.webp ? this.srcset.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp') : this.srcset
         : this.srcset.replace(/\.webp /gi, `.${this.fallback} `);
     },
     srcSetFromGlobal() {
       let outputName = this.src,
         tempName = outputName,
-        ext = tempName.split(".").pop();
+        ext = this.webp && this.webpSupported ? 'webp' : tempName.split(".").pop();
 
       outputName = outputName
         .split(".")
@@ -118,15 +120,19 @@ export default {
       return parseInt(this.$attrs.height) || null;
     },
     srcOnError() {
-      return this.placeholder + "?text=Image+Not+Found";
+      return this.disablePlaceholder ? '' : this.placeholder + "?text=Image+Not+Found";
     },
     usesPlaceholder() {
+      if(this.disablePlaceholder) return false
       return !this.src || this.fileTypeShortCuts.includes(this.src);
     },
     smartSrc() {
       if (this.loadError) return this.srcOnError;
       if (this.usesPlaceholder) return this.placeholder;
-
+      if(this.webp && this.webpSupported){
+        console.log('foreced webp source', this.src.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp'))
+        return this.src.replace(/\.jpg|\.png|\.gif|\.jpeg/gi, '.webp');
+      }
       if (!this.isWebP || this.webpSupported) return this.src;
       return this.smartBackup;
     },
@@ -171,55 +177,31 @@ export default {
           });
       }
     },
-    /**
-     * Check if the image is in the viewport
-     * @returns {boolean}
-     */
-    inViewport() {
-      let elem = this.$refs.image;
-      const { top, bottom } = elem.getBoundingClientRect();
-      const vHeight =
-        window.innerHeight || document.documentElement.clientHeight;
-
-      return (top > 0 || bottom > 0) && top < vHeight;
-    },
 
     /**
      * For lazy loading, init the image not on load but when it's in the viewport
      */
     initImageWhenInViewport() {
-      if (this.inViewport() && !this.inViewPortOnce) {
-        this.inViewPortOnce = true;
-        this.initImage();
-      }
-    },
-
-    /**
-     * Go ahead and check for any images in viewport on load and initialize them
-     * Add an scroll event listener to the window
-     */
-    checkInViewport() {
-      if (this.lazy) {
-        this.initImageWhenInViewport();
-        if (window) {
-          window.addEventListener("scroll", this.initImageWhenInViewport);
+      if( !this.lazy ) return;
+      const observer = new IntersectionObserver((e) => {
+        if (e[0].isIntersecting && !this.inViewPortOnce ) {
+          this.inViewPortOnce = true;
+          this.initImage()
         }
-      }
+      })
+      observer.observe(this.$el)
     }
   },
   mounted() {
     //For lazy load check which images are in viewport and load accordingly
-    if (this.lazy) this.checkInViewport();
+    if (this.lazy) this.initImageWhenInViewport();
     //For non-lazy load go ahead and init the image
     if (!this.lazy) this.initImage();
 
-    this.clientWidth = this.$refs.image.clientWidth;
+    this.clientWidth = this.$el.clientWidth;
     window.addEventListener("resize", () => {
-      this.clientWidth = this.$refs.image.clientWidth;
+      this.clientWidth = this.$el.clientWidth;
     });
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.initImageWhenInViewport);
   }
 };
 </script>
