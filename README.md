@@ -75,6 +75,8 @@ See opti-image in action at [danielkelly.io](https://danielkelly.io?utm_medium=o
 | responsive | whether or not the image should scale and always fit within parent container | Boolean | true | Aspect ratio determined by width/height properties will still be maintained while image is loading |
 | width | width of the image | Integer | null | width and height must be provided to reserve space for the image |
 | height | height of the image | Integer | null | when set to responsive, width and height work more to determine aspect ratio than to be a hard and fast width and height |
+| webp | force webp image even if src does not have webp extension | Boolean | false | helpful when used with webpack loaders |
+| disable-placeholder | don't do the placeholders | Boolean | false | let's the browser show the classic broken image icon instead |
 
 ## Animating Image in On Load
 ```
