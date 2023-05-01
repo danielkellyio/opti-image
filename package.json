@@ -28,10 +28,10 @@
     "vue-runtime-helpers": "^1.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
+    "@vue/cli-plugin-unit-jest": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/server-test-utils": "^1.0.0-beta.29",
     "@vue/test-utils": "1.0.0-beta.29",
@@ -43,7 +43,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "flush-promises": "^1.0.2",
     "node-sass": "^4.9.0",
-    "rollup-plugin-vue": "^5.0.1",
+    "rollup-plugin-vue": "^6.0.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
